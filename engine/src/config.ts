@@ -1,9 +1,27 @@
+import { ChainId } from 'commons/models/chainid';
 import dotenv from 'dotenv';
 dotenv.config();
 
 const MONITOR_INTERVAL: number = parseInt(`${process.env.MONITOR_INTERVAL}`);
 const CHARGE_INTERVAL: number = parseInt(`${process.env.CHARGE_INTERVAL}`);
-const NETWORK: string = `${process.env.NETWORK}`;
+
+const NETWORK_NAME: string = `${process.env.NETWORK}`;
+
+function getNetworkChainId2(networkName: string): ChainId {
+    switch (networkName) {
+        case "sepolia":
+            return ChainId.SEPOLIA;
+        default:
+            return ChainId.MAINNET
+    }
+}
+
+function getNetworkChainId(networkName: string): ChainId {
+    const id = ChainId[networkName as keyof typeof ChainId];
+    return id != undefined ? id : ChainId.MAINNET;
+}
+
+const NETWORK_ID: ChainId = getNetworkChainId(NETWORK_NAME);
 const EXCHANGE: string = `${process.env.EXCHANGE}`;
 const DATABASE_URL: string = `${process.env.DATABASE_URL}`;
 const UNISWAP_GRAPH_URL: string = `${process.env.UNISWAP_GRAPH_URL}`;
@@ -24,7 +42,8 @@ const AES_KEY: string = `${process.env.AES_KEY}`;
 export default {
     MONITOR_INTERVAL,
     CHARGE_INTERVAL,
-    NETWORK,
+    NETWORK_NAME,
+    NETWORK_ID,
     EXCHANGE,
     DATABASE_URL,
     UNISWAP_GRAPH_URL,
