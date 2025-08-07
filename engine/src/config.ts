@@ -7,17 +7,8 @@ const CHARGE_INTERVAL: number = parseInt(`${process.env.CHARGE_INTERVAL}`);
 
 const NETWORK_NAME: string = `${process.env.NETWORK}`;
 
-function getNetworkChainId2(networkName: string): ChainId {
-    switch (networkName) {
-        case "sepolia":
-            return ChainId.SEPOLIA;
-        default:
-            return ChainId.MAINNET
-    }
-}
-
 function getNetworkChainId(networkName: string): ChainId {
-    const id = ChainId[networkName as keyof typeof ChainId];
+    const id = ChainId[networkName.toUpperCase() as keyof typeof ChainId];
     return id != undefined ? id : ChainId.MAINNET;
 }
 

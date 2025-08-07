@@ -3,7 +3,7 @@ import chainid = require("./chainid");
 export type Token = {
     id:string;
     name:string;
-    sybol:string;
+    symbol:string;
     decimals:number;
     network: chainid.ChainId
 }
