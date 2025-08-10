@@ -17,7 +17,7 @@ datasource db {
 model tokens {
   id       String @id @map("_id")
   name     String
-  sybol    String
+  symbol    String
   decimals Int
   network  Int
 }
